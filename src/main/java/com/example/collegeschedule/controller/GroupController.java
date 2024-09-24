@@ -1,12 +1,11 @@
 package com.example.collegeschedule.controller;
 
+import com.example.collegeschedule.dto.GroupCreateDto;
 import com.example.collegeschedule.dto.GroupDto;
 import com.example.collegeschedule.service.GroupService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,5 +18,12 @@ public class GroupController {
     @GetMapping
     public ResponseEntity<List<GroupDto>> getGroups() {
         return ResponseEntity.ok(groupService.findAll());
+    }
+
+    @PostMapping
+    public ResponseEntity<GroupDto> createGroup(
+            @RequestBody GroupCreateDto groupCreateDto
+    ) {
+        return ResponseEntity.ok(groupService.create(groupCreateDto));
     }
 }

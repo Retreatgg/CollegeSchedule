@@ -9,5 +9,5 @@ spring:
     change-log: classpath:/db/changelog/master.yaml
 
 server:
-  address: 172.20.10.4
+  address: 172.20.10.3
   port: 9999

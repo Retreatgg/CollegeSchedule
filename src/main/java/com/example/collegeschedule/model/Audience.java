@@ -3,8 +3,7 @@ package com.example.collegeschedule.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -13,6 +12,9 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "audiences")
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Audience {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "audiences_id_gen")

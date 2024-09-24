@@ -1,5 +1,6 @@
 package com.example.collegeschedule.service.impl;
 
+import com.example.collegeschedule.dto.GroupCreateDto;
 import com.example.collegeschedule.dto.GroupDto;
 import com.example.collegeschedule.mapper.GroupMapper;
 import com.example.collegeschedule.model.Group;
@@ -25,5 +26,15 @@ public class GroupServiceImpl implements GroupService {
     @Override
     public Group findById(Long groupId) {
         return groupRepository.findById(groupId).orElseThrow();
+    }
+
+    @Override
+    public GroupDto create(GroupCreateDto groupCreateDto) {
+        Group group = Group.builder()
+                .name(groupCreateDto.getName())
+                .course(groupCreateDto.getCourse())
+                .build();
+        groupRepository.save(group);
+        return groupMapper.toDto(group);
     }
 }

@@ -43,11 +43,11 @@ databaseChangeLog:
                     references: audiences(id)
               - column:
                   name: start_date
-                  type: timestamp
+                  type: time
                   constraints:
                     nullable: false
               - column:
                   name: end_date
-                  type: timestamp
+                  type: time
                   constraints:
                     nullable: false

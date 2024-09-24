@@ -1,12 +1,11 @@
 package com.example.collegeschedule.controller;
 
+import com.example.collegeschedule.dto.DisciplineCreateDto;
 import com.example.collegeschedule.dto.DisciplineDto;
 import com.example.collegeschedule.service.DisciplineService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,6 +18,13 @@ public class DisciplineController {
     @GetMapping
     public ResponseEntity<List<DisciplineDto>> findAll() {
         return ResponseEntity.ok(disciplineService.findAll());
+    }
+
+    @PostMapping
+    public ResponseEntity<DisciplineDto> createDiscipline(
+            @RequestBody DisciplineCreateDto disciplineCreateDto
+    ) {
+        return ResponseEntity.ok(disciplineService.create(disciplineCreateDto));
     }
 
 }

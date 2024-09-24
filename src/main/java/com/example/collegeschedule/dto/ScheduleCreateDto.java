@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.time.Instant;
+import java.time.LocalTime;
 
 @Data
 @Builder
@@ -12,6 +13,6 @@ public class ScheduleCreateDto {
     private Long teacherId;
     private Long disciplineId;
     private Long audienceId;
-    private Instant startDate;
-    private Instant endDate;
+    private LocalTime startDate;
+    private LocalTime endDate;
 }

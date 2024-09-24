@@ -1,0 +1,12 @@
+databaseChangeLog:
+  - changeSet:
+      id: add course for groups
+      author: Argen
+      changes:
+        - addColumn:
+            tableName: groups
+            columns:
+              - column:
+                  name: course
+                  type: integer
+

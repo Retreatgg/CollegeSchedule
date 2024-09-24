@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - changeSet:
+      id: add day of week for schedule
+      author: Argen
+      changes:
+        - addColumn:
+            tableName: schedules
+            columns:
+              - column:
+                  name: day_of_week
+                  type: varchar(15)

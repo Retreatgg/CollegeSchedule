@@ -2,8 +2,7 @@ package com.example.collegeschedule.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -12,6 +11,9 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "groups")
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Group {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "groups_id_gen")
@@ -25,5 +27,8 @@ public class Group {
 
     @OneToMany(mappedBy = "group")
     private Set<Schedule> schedules = new LinkedHashSet<>();
+
+    @Column(name = "course")
+    private Integer course;
 
 }

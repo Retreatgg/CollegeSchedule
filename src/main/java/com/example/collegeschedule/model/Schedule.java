@@ -2,9 +2,11 @@ package com.example.collegeschedule.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.time.Instant;
+import java.time.LocalTime;
 
 @Getter
 @Setter
@@ -40,12 +42,17 @@ public class Schedule {
     @JoinColumn(name = "audience_id", nullable = false)
     private Audience audience;
 
+
+    @Size(max = 15)
+    @Column(name = "day_of_week", length = 15)
+    private String dayOfWeek;
+
     @NotNull
     @Column(name = "start_date", nullable = false)
-    private Instant startDate;
+    private LocalTime startDate;
 
     @NotNull
     @Column(name = "end_date", nullable = false)
-    private Instant endDate;
+    private LocalTime endDate;
 
 }
