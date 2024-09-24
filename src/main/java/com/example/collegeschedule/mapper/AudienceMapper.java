@@ -14,6 +14,7 @@ import java.util.List;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING, uses = {AudienceTypeMapper.class})
 public interface AudienceMapper {
     @Mapping(target = "typeDto", source = "type")
+    @Mapping(target = "id", source = "id")
     AudienceDto toDto(Audience audience);
     List<AudienceDto> toListDto(List<Audience> audienceList);
     default AudiencesTypeDto mapToDto(AudiencesType audiencesType, @Context AudienceTypeMapper audienceTypeMapper) {

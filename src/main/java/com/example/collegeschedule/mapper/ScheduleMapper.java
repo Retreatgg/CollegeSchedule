@@ -16,6 +16,7 @@ public interface ScheduleMapper {
     @Mapping(target = "disciplineDto", source = "discipline")
     @Mapping(target = "startDate", source = "startDate")
     @Mapping(target = "endDate", source = "endDate")
+    @Mapping(target = "dayOfWeek", source = "dayOfWeek")
     ScheduleDto toDto(Schedule schedule);
     List<ScheduleDto> toListDto(List<Schedule> schedules);
 }
