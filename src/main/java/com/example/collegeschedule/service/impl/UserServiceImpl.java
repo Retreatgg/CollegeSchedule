@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -53,4 +54,26 @@ public class UserServiceImpl implements UserService {
         userRoleRepository.save(userRole);
         return userMapper.toTeacherDto(teacher);
     }
+
+    @Override
+    public User findByEmail(String username) {
+        return userRepository.findByEmail(username).orElseThrow();
+    }
+
+    @Override
+    public void save(User user) {
+        userRepository.save(user);
+    }
+
+    @Override
+    public Boolean checkToken(String token) {
+        Optional<User> userOptional = userRepository.findByToken(token);
+        return userOptional.isEmpty();
+    }
+
+    @Override
+    public User getUserByToken(String token) {
+        return userRepository.findByToken(token).orElseThrow();
+    }
+
 }

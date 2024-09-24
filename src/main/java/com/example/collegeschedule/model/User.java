@@ -57,5 +57,6 @@ public class User {
     @NotNull
     @Column(name = "patronymic", nullable = false, length = 150)
     private String patronymic;
+    private String token;
 
 }

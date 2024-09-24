@@ -28,6 +28,9 @@ public class ScheduleServiceImpl implements ScheduleService {
                 .audience(audienceService.findById(scheduleCreateDto.getAudienceId()))
                 .discipline(disciplineService.findById(scheduleCreateDto.getDisciplineId()))
                 .teacher(userService.findById(scheduleCreateDto.getTeacherId()))
+                .dayOfWeek(scheduleCreateDto.getDayOfWeek())
+                .startDate(scheduleCreateDto.getStartDate())
+                .endDate(scheduleCreateDto.getEndDate())
                 .build();
         scheduleRepository.save(schedule);
         return scheduleMapper.toDto(schedule);
@@ -38,7 +41,6 @@ public class ScheduleServiceImpl implements ScheduleService {
         List<Schedule> schedules = scheduleRepository.findAll();
         return scheduleMapper.toListDto(schedules);
     }
-
 
     @Override
     public Schedule findById(Long scheduleId) {

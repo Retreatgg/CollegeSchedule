@@ -10,4 +10,10 @@ public interface UserService {
     List<UserTeacherDto> findAllTeachers();
     User findById(Long teacherId);
     UserTeacherDto createTeacher(TeacherCreateDto teacherCreateDto);
+    User findByEmail(String username);
+    void save(User user);
+
+    Boolean checkToken(String token);
+
+    User getUserByToken(String token);
 }
