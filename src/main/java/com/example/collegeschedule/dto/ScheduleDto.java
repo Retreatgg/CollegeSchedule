@@ -3,7 +3,6 @@ package com.example.collegeschedule.dto;
 import lombok.Builder;
 import lombok.Data;
 
-import java.time.Instant;
 import java.time.LocalTime;
 
 @Data
@@ -11,7 +10,7 @@ import java.time.LocalTime;
 public class ScheduleDto {
     private Long id;
     private AudienceDto audienceDto;
-    private UserTeacherDto userTeacherDto;
+    private TeacherDto teacherDto;
     private GroupDto groupDto;
     private DisciplineDto disciplineDto;
     private LocalTime startDate;

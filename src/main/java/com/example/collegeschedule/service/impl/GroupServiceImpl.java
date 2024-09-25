@@ -9,6 +9,7 @@ import com.example.collegeschedule.service.GroupService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,8 +19,8 @@ public class GroupServiceImpl implements GroupService {
     private final GroupMapper groupMapper;
 
     @Override
-    public List<GroupDto> findAll() {
-        List<Group> groups = groupRepository.findAll();
+    public List<GroupDto> findAll(Integer course) {
+        List<Group> groups = groupRepository.findByCourse(course);
         return groupMapper.toListDto(groups);
     }
 

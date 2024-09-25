@@ -9,7 +9,7 @@ import java.util.List;
 
 @Service
 public interface GroupService{
-    List<GroupDto> findAll();
+    List<GroupDto> findAll(Integer course);
     Group findById(Long groupId);
     GroupDto create(GroupCreateDto groupCreateDto);
 }

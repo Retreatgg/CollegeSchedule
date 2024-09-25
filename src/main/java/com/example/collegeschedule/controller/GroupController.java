@@ -16,8 +16,10 @@ public class GroupController {
     private final GroupService groupService;
 
     @GetMapping
-    public ResponseEntity<List<GroupDto>> getGroups() {
-        return ResponseEntity.ok(groupService.findAll());
+    public ResponseEntity<List<GroupDto>> getGroups(
+            @RequestParam(name = "course", defaultValue = "1") Integer course
+    ) {
+        return ResponseEntity.ok(groupService.findAll(course));
     }
 
     @PostMapping

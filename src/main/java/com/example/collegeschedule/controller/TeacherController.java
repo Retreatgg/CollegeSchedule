@@ -1,7 +1,8 @@
 package com.example.collegeschedule.controller;
 
 import com.example.collegeschedule.dto.TeacherCreateDto;
-import com.example.collegeschedule.dto.UserTeacherDto;
+import com.example.collegeschedule.dto.TeacherDto;
+import com.example.collegeschedule.service.TeacherService;
 import com.example.collegeschedule.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -13,15 +14,15 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/api/teachers")
 public class TeacherController {
-    private final UserService userService;
+    private final TeacherService teacherService;
 
     @GetMapping
-    public ResponseEntity<List<UserTeacherDto>> getTeachers() {
-        return ResponseEntity.ok(userService.findAllTeachers());
+    public ResponseEntity<List<TeacherDto>> getTeachers() {
+        return ResponseEntity.ok(teacherService.findAllTeachers());
     }
 
     @PostMapping
-    public ResponseEntity<UserTeacherDto> createTeacher(@RequestBody TeacherCreateDto teacherCreateDto) {
-        return ResponseEntity.ok(userService.createTeacher(teacherCreateDto));
+    public ResponseEntity<TeacherDto> createTeacher(@RequestBody TeacherCreateDto teacherCreateDto) {
+        return ResponseEntity.ok(teacherService.createTeacher(teacherCreateDto));
     }
 }

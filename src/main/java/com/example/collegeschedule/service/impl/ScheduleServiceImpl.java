@@ -6,9 +6,12 @@ import com.example.collegeschedule.mapper.ScheduleMapper;
 import com.example.collegeschedule.model.Schedule;
 import com.example.collegeschedule.repository.ScheduleRepository;
 import com.example.collegeschedule.service.*;
+import com.example.collegeschedule.specification.ScheduleSpecification;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -17,7 +20,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     private final ScheduleRepository scheduleRepository;
     private final GroupService groupService;
     private final DisciplineService disciplineService;
-    private final UserService userService;
+    private final TeacherService teacherService;
     private final AudienceService audienceService;
     private final ScheduleMapper scheduleMapper;
 
@@ -27,7 +30,7 @@ public class ScheduleServiceImpl implements ScheduleService {
                 .group(groupService.findById(scheduleCreateDto.getGroupId()))
                 .audience(audienceService.findById(scheduleCreateDto.getAudienceId()))
                 .discipline(disciplineService.findById(scheduleCreateDto.getDisciplineId()))
-                .teacher(userService.findById(scheduleCreateDto.getTeacherId()))
+                .teacher(teacherService.findById(scheduleCreateDto.getTeacherId()))
                 .dayOfWeek(scheduleCreateDto.getDayOfWeek())
                 .startDate(scheduleCreateDto.getStartDate())
                 .endDate(scheduleCreateDto.getEndDate())
@@ -37,8 +40,18 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
-    public List<ScheduleDto> scheduleList() {
-        List<Schedule> schedules = scheduleRepository.findAll();
+    public List<ScheduleDto> scheduleList(
+            Long groupId, Long teacherId, Long audienceId,
+            String dayOfWeek, LocalTime startTime, LocalTime endTime,
+            Long disciplineId) {
+        Specification<Schedule> spec = ScheduleSpecification
+                .hasTeacher(teacherId)
+                .and(ScheduleSpecification.hasAudience(audienceId))
+                .and(ScheduleSpecification.hasDayOfWeek(dayOfWeek))
+                .and(ScheduleSpecification.hasGroupId(groupId))
+                .and(ScheduleSpecification.hasDiscipline(disciplineId))
+                .and(ScheduleSpecification.betweenTime(startTime, endTime));
+        List<Schedule> schedules = scheduleRepository.findAll(spec);
         return scheduleMapper.toListDto(schedules);
     }
 

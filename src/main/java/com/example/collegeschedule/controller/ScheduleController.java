@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalTime;
 import java.util.List;
 
 @RestController
@@ -22,7 +23,18 @@ public class ScheduleController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<ScheduleDto>> schedules() {
-        return ResponseEntity.ok(scheduleService.scheduleList());
+    public ResponseEntity<List<ScheduleDto>> schedules(
+            @RequestParam(name = "groupId", defaultValue = "0") Long groupId,
+            @RequestParam(name = "teacherId", defaultValue = "0") Long teacherId,
+            @RequestParam(name = "audienceId", defaultValue = "0") Long audienceId,
+            @RequestParam(name = "dayOfWeek", defaultValue = "default") String dayOfWeek,
+            @RequestParam(name = "startTime", required = false) LocalTime startTime,
+            @RequestParam(name = "endTime", required = false) LocalTime endTime,
+            @RequestParam(name = "disciplineId", defaultValue = "0") Long disciplineId
+            ) {
+        return ResponseEntity.
+                ok(scheduleService.scheduleList(
+                        groupId, teacherId, audienceId, dayOfWeek, startTime, endTime, disciplineId
+                ));
     }
 }

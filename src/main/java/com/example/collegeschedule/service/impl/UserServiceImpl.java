@@ -1,7 +1,7 @@
 package com.example.collegeschedule.service.impl;
 
 import com.example.collegeschedule.dto.TeacherCreateDto;
-import com.example.collegeschedule.dto.UserTeacherDto;
+import com.example.collegeschedule.dto.TeacherDto;
 import com.example.collegeschedule.mapper.UserMapper;
 import com.example.collegeschedule.model.User;
 import com.example.collegeschedule.model.UserRole;
@@ -26,33 +26,8 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
 
     @Override
-    public List<UserTeacherDto> findAllTeachers() {
-        List<User> teachers = userRepository.findTeachers();
-        return userMapper.toListTeacherDto(teachers);
-    }
-
-    @Override
     public User findById(Long teacherId) {
         return userRepository.findById(teacherId).orElseThrow();
-    }
-
-    @Override
-    public UserTeacherDto createTeacher(TeacherCreateDto teacherCreateDto) {
-        User teacher = User.builder()
-                .email(teacherCreateDto.getEmail())
-                .enabled(true)
-                .surname(teacherCreateDto.getSurname())
-                .name(teacherCreateDto.getName())
-                .patronymic(teacherCreateDto.getPatronymic())
-                .password(encoder.encode(teacherCreateDto.getPassword()))
-                .build();
-        userRepository.save(teacher);
-        UserRole userRole = UserRole.builder()
-                .role(roleService.findById(1L))
-                .user(teacher)
-                .build();
-        userRoleRepository.save(userRole);
-        return userMapper.toTeacherDto(teacher);
     }
 
     @Override

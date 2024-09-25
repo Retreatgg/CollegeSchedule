@@ -24,11 +24,6 @@ public class Schedule {
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "teacher_id", nullable = false)
-    private User teacher;
-
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "discipline_id", nullable = false)
     private Discipline discipline;
 
@@ -54,5 +49,10 @@ public class Schedule {
     @NotNull
     @Column(name = "end_date", nullable = false)
     private LocalTime endDate;
+
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "teacher_id", nullable = false)
+    private Teacher teacher;
 
 }

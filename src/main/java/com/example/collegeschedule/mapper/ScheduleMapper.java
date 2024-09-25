@@ -12,7 +12,7 @@ import java.util.List;
 public interface ScheduleMapper {
     @Mapping(target = "groupDto", source = "group")
     @Mapping(target = "audienceDto", source = "audience")
-    @Mapping(target = "userTeacherDto", source = "teacher")
+    @Mapping(target = "teacherDto", source = "teacher")
     @Mapping(target = "disciplineDto", source = "discipline")
     @Mapping(target = "startDate", source = "startDate")
     @Mapping(target = "endDate", source = "endDate")

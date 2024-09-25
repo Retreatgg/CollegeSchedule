@@ -10,11 +10,9 @@ import java.util.NoSuchElementException;
 public enum Day {
     MONDAY("ПОНЕДЕЛНИК"),
     TUESDAY("ВТОРНИК"),
-    SATURDAY("СУББОТА"),
     WEDNESDAY("СРЕДА"),
     THURSDAY("ЧЕТВЕРГ"),
     FRIDAY("ПЯТНИЦА");
-   // SUNDAY("ВОСКРЕСЕНЬЕ");
 
     private final String day;
 
@@ -22,7 +20,6 @@ public enum Day {
         return switch (day.toUpperCase()) {
             case "ПОНЕДЕЛНИК" -> MONDAY;
             case "ВТОРНИК" -> TUESDAY;
-            case "СУББОТА" -> SATURDAY;
             case "СРЕДА" -> WEDNESDAY;
             case "ЧЕТВЕРГ" -> THURSDAY;
             case "ПЯТНИЦА" -> FRIDAY;

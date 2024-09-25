@@ -1,0 +1,45 @@
+databaseChangeLog:
+  - changeSet:
+      id: create table for teachers
+      author: Argen
+      changes:
+        - createTable:
+            tableName: teachers
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(150)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: surname
+                  type: varchar(150)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: patronymic
+                  type: varchar(150)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: enabled
+                  type: boolean
+                  defaultValueBoolean: true
+
+        - dropForeignKeyConstraint:
+            baseTableName: schedules
+            constraintName: fk_teacher_id
+        - addForeignKeyConstraint:
+            baseTableName: schedules
+            baseColumnNames: teacher_id
+            constraintName: fk_teacher_id_to_teachers
+            referencedTableName: teachers
+            referencedColumnNames: id
+
