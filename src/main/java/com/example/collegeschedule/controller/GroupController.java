@@ -17,7 +17,7 @@ public class GroupController {
 
     @GetMapping
     public ResponseEntity<List<GroupDto>> getGroups(
-            @RequestParam(name = "course", defaultValue = "1") Integer course
+            @RequestParam(name = "course", defaultValue = "0") Integer course
     ) {
         return ResponseEntity.ok(groupService.findAll(course));
     }

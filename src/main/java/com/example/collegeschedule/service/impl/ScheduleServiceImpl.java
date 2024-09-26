@@ -2,6 +2,7 @@ package com.example.collegeschedule.service.impl;
 
 import com.example.collegeschedule.dto.ScheduleCreateDto;
 import com.example.collegeschedule.dto.ScheduleDto;
+import com.example.collegeschedule.dto.ScheduleEditDto;
 import com.example.collegeschedule.mapper.ScheduleMapper;
 import com.example.collegeschedule.model.Schedule;
 import com.example.collegeschedule.repository.ScheduleRepository;
@@ -43,14 +44,15 @@ public class ScheduleServiceImpl implements ScheduleService {
     public List<ScheduleDto> scheduleList(
             Long groupId, Long teacherId, Long audienceId,
             String dayOfWeek, LocalTime startTime, LocalTime endTime,
-            Long disciplineId) {
+            Long disciplineId, Integer course) {
         Specification<Schedule> spec = ScheduleSpecification
                 .hasTeacher(teacherId)
                 .and(ScheduleSpecification.hasAudience(audienceId))
                 .and(ScheduleSpecification.hasDayOfWeek(dayOfWeek))
                 .and(ScheduleSpecification.hasGroupId(groupId))
                 .and(ScheduleSpecification.hasDiscipline(disciplineId))
-                .and(ScheduleSpecification.betweenTime(startTime, endTime));
+                .and(ScheduleSpecification.betweenTime(startTime, endTime))
+                .and(ScheduleSpecification.hasCourse(course));
         List<Schedule> schedules = scheduleRepository.findAll(spec);
         return scheduleMapper.toListDto(schedules);
     }
@@ -58,5 +60,21 @@ public class ScheduleServiceImpl implements ScheduleService {
     @Override
     public Schedule findById(Long scheduleId) {
         return scheduleRepository.findById(scheduleId).orElseThrow();
+    }
+
+    @Override
+    public ScheduleDto edit(Long id, ScheduleEditDto scheduleEditDto) {
+        Schedule schedule = Schedule.builder()
+                .group(groupService.findById(scheduleEditDto.getGroupId()))
+                .audience(audienceService.findById(scheduleEditDto.getAudienceId()))
+                .discipline(disciplineService.findById(scheduleEditDto.getDisciplineId()))
+                .teacher(teacherService.findById(scheduleEditDto.getTeacherId()))
+                .dayOfWeek(scheduleEditDto.getDayOfWeek())
+                .startDate(scheduleEditDto.getStartDate())
+                .endDate(scheduleEditDto.getEndDate())
+                .id(id)
+                .build();
+        scheduleRepository.save(schedule);
+        return scheduleMapper.toDto(schedule);
     }
 }

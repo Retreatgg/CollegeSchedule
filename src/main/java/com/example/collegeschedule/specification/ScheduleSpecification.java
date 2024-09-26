@@ -62,4 +62,8 @@ public class ScheduleSpecification {
         };
     }
 
+    public static Specification<Schedule> hasCourse(Integer course) {
+        return (r, q, cb) -> cb.equal(r.get("group").get("course"), course);
+    }
+
 }

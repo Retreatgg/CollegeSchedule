@@ -20,7 +20,12 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     public List<GroupDto> findAll(Integer course) {
-        List<Group> groups = groupRepository.findByCourse(course);
+        List<Group> groups = new ArrayList();
+        if (course == 0) {
+            groups = groupRepository.findAll();
+        } else {
+            groups = groupRepository.findByCourse(course);
+        }
         return groupMapper.toListDto(groups);
     }
 

@@ -2,6 +2,7 @@ package com.example.collegeschedule.controller;
 
 import com.example.collegeschedule.dto.ScheduleCreateDto;
 import com.example.collegeschedule.dto.ScheduleDto;
+import com.example.collegeschedule.dto.ScheduleEditDto;
 import com.example.collegeschedule.service.ScheduleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -30,11 +31,19 @@ public class ScheduleController {
             @RequestParam(name = "dayOfWeek", defaultValue = "default") String dayOfWeek,
             @RequestParam(name = "startTime", required = false) LocalTime startTime,
             @RequestParam(name = "endTime", required = false) LocalTime endTime,
-            @RequestParam(name = "disciplineId", defaultValue = "0") Long disciplineId
+            @RequestParam(name = "disciplineId", defaultValue = "0") Long disciplineId,
+            @RequestParam(name = "course", defaultValue = "1") Integer course
             ) {
         return ResponseEntity.
                 ok(scheduleService.scheduleList(
-                        groupId, teacherId, audienceId, dayOfWeek, startTime, endTime, disciplineId
+                        groupId, teacherId, audienceId, dayOfWeek, startTime, endTime, disciplineId, course
                 ));
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity<ScheduleDto> edit(
+            @PathVariable Long id,
+            @RequestBody ScheduleEditDto scheduleEditDto) {
+        return ResponseEntity.ok(scheduleService.edit(id, scheduleEditDto));
     }
 }
