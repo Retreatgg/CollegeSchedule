@@ -2,6 +2,7 @@ package com.example.collegeschedule.service.impl;
 
 import com.example.collegeschedule.dto.GroupCreateDto;
 import com.example.collegeschedule.dto.GroupDto;
+import com.example.collegeschedule.exception.GroupNotFoundException;
 import com.example.collegeschedule.mapper.GroupMapper;
 import com.example.collegeschedule.model.Group;
 import com.example.collegeschedule.repository.GroupRepository;
@@ -20,7 +21,7 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     public List<GroupDto> findAll(Integer course) {
-        List<Group> groups = new ArrayList();
+        List<Group> groups;
         if (course == 0) {
             groups = groupRepository.findAll();
         } else {
@@ -31,7 +32,8 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     public Group findById(Long groupId) {
-        return groupRepository.findById(groupId).orElseThrow();
+        return groupRepository.findById(groupId)
+                .orElseThrow(() -> new GroupNotFoundException("Группа не найдена ID: "+ groupId));
     }
 
     @Override

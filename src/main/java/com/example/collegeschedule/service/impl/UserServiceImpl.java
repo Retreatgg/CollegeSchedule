@@ -10,6 +10,7 @@ import com.example.collegeschedule.repository.UserRoleRepository;
 import com.example.collegeschedule.service.RoleService;
 import com.example.collegeschedule.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -19,20 +20,12 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
-    private final UserRoleRepository userRoleRepository;
     private final UserRepository userRepository;
-    private final RoleService roleService;
-    private final PasswordEncoder encoder;
-    private final UserMapper userMapper;
-
-    @Override
-    public User findById(Long teacherId) {
-        return userRepository.findById(teacherId).orElseThrow();
-    }
 
     @Override
     public User findByEmail(String username) {
-        return userRepository.findByEmail(username).orElseThrow();
+        return userRepository.findByEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Email: " + username + " еще не существует"));
     }
 
     @Override

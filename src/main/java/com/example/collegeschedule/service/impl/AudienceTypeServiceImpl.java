@@ -1,6 +1,7 @@
 package com.example.collegeschedule.service.impl;
 
 import com.example.collegeschedule.dto.AudiencesTypeDto;
+import com.example.collegeschedule.exception.AudienceTypeNotFoundException;
 import com.example.collegeschedule.mapper.AudienceTypeMapper;
 import com.example.collegeschedule.model.AudiencesType;
 import com.example.collegeschedule.repository.AudiencesTypeRepository;
@@ -18,7 +19,8 @@ public class AudienceTypeServiceImpl implements AudienceTypeService {
 
     @Override
     public AudiencesType findById(Long typeId) {
-        return audiencesTypeRepository.findById(typeId).orElseThrow();
+        return audiencesTypeRepository.findById(typeId)
+                .orElseThrow(() -> new AudienceTypeNotFoundException("Тип аудитории не найден ID:" + typeId));
     }
 
     @Override

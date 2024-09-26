@@ -2,6 +2,7 @@ package com.example.collegeschedule.service.impl;
 
 import com.example.collegeschedule.dto.AudienceCreateDto;
 import com.example.collegeschedule.dto.AudienceDto;
+import com.example.collegeschedule.exception.AudienceNotFoundException;
 import com.example.collegeschedule.mapper.AudienceMapper;
 import com.example.collegeschedule.model.Audience;
 import com.example.collegeschedule.repository.AudienceRepository;
@@ -27,7 +28,8 @@ public class AudienceServiceImpl implements AudienceService {
 
     @Override
     public Audience findById(Long audienceId) {
-        return audienceRepository.findById(audienceId).orElseThrow();
+        return audienceRepository.findById(audienceId)
+                .orElseThrow(() -> new AudienceNotFoundException("Аудитория не найдена по ID" + audienceId));
     }
 
     @Override

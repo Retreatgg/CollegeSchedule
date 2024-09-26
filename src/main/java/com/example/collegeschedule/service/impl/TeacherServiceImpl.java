@@ -2,6 +2,7 @@ package com.example.collegeschedule.service.impl;
 
 import com.example.collegeschedule.dto.TeacherCreateDto;
 import com.example.collegeschedule.dto.TeacherDto;
+import com.example.collegeschedule.exception.TeacherNotFoundException;
 import com.example.collegeschedule.mapper.TeacherMapper;
 import com.example.collegeschedule.model.Teacher;
 import com.example.collegeschedule.repository.TeacherRepository;
@@ -32,6 +33,7 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public Teacher findById(Long teacherId) {
-        return teacherRepository.findById(teacherId).orElseThrow();
+        return teacherRepository.findById(teacherId)
+                .orElseThrow(() -> new TeacherNotFoundException("Преподователь не был найден, ID: "+ teacherId));
     }
 }

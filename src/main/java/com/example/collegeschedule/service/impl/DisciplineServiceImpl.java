@@ -2,6 +2,7 @@ package com.example.collegeschedule.service.impl;
 
 import com.example.collegeschedule.dto.DisciplineCreateDto;
 import com.example.collegeschedule.dto.DisciplineDto;
+import com.example.collegeschedule.exception.DisciplineNotFoundException;
 import com.example.collegeschedule.mapper.DisciplineMapper;
 import com.example.collegeschedule.model.Discipline;
 import com.example.collegeschedule.repository.DisciplineRepository;
@@ -25,7 +26,8 @@ public class DisciplineServiceImpl implements DisciplineService {
 
     @Override
     public Discipline findById(Long disciplineId) {
-        return disciplineRepository.findById(disciplineId).orElseThrow();
+        return disciplineRepository.findById(disciplineId)
+                .orElseThrow(() -> new DisciplineNotFoundException("Дисциплина по ID: "+ disciplineId + " не существует"));
     }
 
     @Override
