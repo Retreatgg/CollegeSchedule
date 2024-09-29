@@ -1,5 +1,6 @@
 package com.example.collegeschedule.service;
 
+import com.example.collegeschedule.dto.GroupDto;
 import com.example.collegeschedule.dto.ScheduleCreateDto;
 import com.example.collegeschedule.dto.ScheduleDto;
 import com.example.collegeschedule.dto.ScheduleEditDto;
@@ -18,4 +19,8 @@ public interface ScheduleService {
     Schedule findById(Long scheduleId);
 
     ScheduleDto edit(Long id, ScheduleEditDto scheduleEditDto);
+
+    List<GroupDto> getCountGroups(Long teacherId, String dayOfWeek, LocalTime startTime, LocalTime endTime);
+
+    void delete(Long id);
 }

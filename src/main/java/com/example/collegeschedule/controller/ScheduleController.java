@@ -1,10 +1,12 @@
 package com.example.collegeschedule.controller;
 
+import com.example.collegeschedule.dto.GroupDto;
 import com.example.collegeschedule.dto.ScheduleCreateDto;
 import com.example.collegeschedule.dto.ScheduleDto;
 import com.example.collegeschedule.dto.ScheduleEditDto;
 import com.example.collegeschedule.service.ScheduleService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,5 +47,21 @@ public class ScheduleController {
             @PathVariable Long id,
             @RequestBody ScheduleEditDto scheduleEditDto) {
         return ResponseEntity.ok(scheduleService.edit(id, scheduleEditDto));
+    }
+
+    @GetMapping("counts")
+    public ResponseEntity<List<GroupDto>> countsGroupForTeacher(
+            @RequestParam(name = "teacherId", required = true) Long teacherId,
+            @RequestParam(name = "dayOfWeek", required = true) String dayOfWeek,
+            @RequestParam(name = "startTime", required = true) LocalTime startTime,
+            @RequestParam(name = "endTime", required = true) LocalTime endTime
+    ) {
+        return ResponseEntity.ok(scheduleService.getCountGroups(teacherId, dayOfWeek, startTime, endTime));
+    }
+
+    @DeleteMapping("{id}")
+    public HttpStatus delete(@PathVariable Long id) {
+        scheduleService.delete(id);
+        return HttpStatus.OK;
     }
 }

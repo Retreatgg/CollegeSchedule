@@ -1,9 +1,12 @@
 package com.example.collegeschedule.service.impl;
 
+import com.example.collegeschedule.dto.GroupDto;
 import com.example.collegeschedule.dto.ScheduleCreateDto;
 import com.example.collegeschedule.dto.ScheduleDto;
 import com.example.collegeschedule.dto.ScheduleEditDto;
+import com.example.collegeschedule.mapper.GroupMapper;
 import com.example.collegeschedule.mapper.ScheduleMapper;
+import com.example.collegeschedule.model.Group;
 import com.example.collegeschedule.model.Schedule;
 import com.example.collegeschedule.repository.ScheduleRepository;
 import com.example.collegeschedule.service.*;
@@ -24,6 +27,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     private final TeacherService teacherService;
     private final AudienceService audienceService;
     private final ScheduleMapper scheduleMapper;
+    private final GroupMapper groupMapper;
 
     @Override
     public ScheduleDto create(ScheduleCreateDto scheduleCreateDto) {
@@ -76,5 +80,20 @@ public class ScheduleServiceImpl implements ScheduleService {
                 .build();
         scheduleRepository.save(schedule);
         return scheduleMapper.toDto(schedule);
+    }
+
+    @Override
+    public List<GroupDto> getCountGroups(Long teacherId, String dayOfWeek, LocalTime startTime, LocalTime endTime) {
+        Specification<Schedule> spec = ScheduleSpecification.hasTeacher(teacherId)
+                .and(ScheduleSpecification.hasDayOfWeek(dayOfWeek))
+                .and(ScheduleSpecification.betweenTime(startTime, endTime));
+        List<Schedule> schedules = scheduleRepository.findAll(spec);
+        List<Group> groups = schedules.stream().map(Schedule::getGroup).toList();
+        return groupMapper.toListDto(groups);
+    }
+
+    @Override
+    public void delete(Long id) {
+        scheduleRepository.deleteById(id);
     }
 }
