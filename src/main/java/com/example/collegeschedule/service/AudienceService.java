@@ -12,4 +12,5 @@ public interface AudienceService {
     List<AudienceDto> findAll();
     Audience findById(Long audienceId);
     AudienceDto create(AudienceCreateDto audienceCreateDto);
+    void delete(Long id);
 }

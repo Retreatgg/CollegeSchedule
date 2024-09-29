@@ -9,6 +9,7 @@ import com.example.collegeschedule.service.AudienceService;
 import com.example.collegeschedule.service.AudienceTypeService;
 import com.example.collegeschedule.service.GroupService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,4 +36,11 @@ public class AudienceController {
     public ResponseEntity<List<AudiencesTypeDto>> getTypes() {
         return ResponseEntity.ok(audienceTypeService.findAll());
     }
+
+    @DeleteMapping("{id}")
+    public HttpStatus delete(@PathVariable Long id) {
+        audienceService.delete(id);
+        return HttpStatus.OK;
+    }
+
 }

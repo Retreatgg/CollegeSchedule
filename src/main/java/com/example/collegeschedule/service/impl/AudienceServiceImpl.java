@@ -43,4 +43,9 @@ public class AudienceServiceImpl implements AudienceService {
         audienceRepository.save(audience);
         return audienceMapper.toDto(audience);
     }
+
+    @Override
+    public void delete(Long id) {
+        audienceRepository.deleteById(id);
+    }
 }

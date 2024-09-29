@@ -36,4 +36,9 @@ public class TeacherServiceImpl implements TeacherService {
         return teacherRepository.findById(teacherId)
                 .orElseThrow(() -> new TeacherNotFoundException("Преподователь не был найден, ID: "+ teacherId));
     }
+
+    @Override
+    public void delete(Long id) {
+        teacherRepository.deleteById(id);
+    }
 }

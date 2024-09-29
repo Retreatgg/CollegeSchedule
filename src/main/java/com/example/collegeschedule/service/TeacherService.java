@@ -10,4 +10,5 @@ public interface TeacherService {
     List<TeacherDto> findAllTeachers();
     TeacherDto createTeacher(TeacherCreateDto teacherCreateDto);
     Teacher findById(Long teacherId);
+    void delete(Long id);
 }

@@ -4,6 +4,7 @@ import com.example.collegeschedule.dto.GroupCreateDto;
 import com.example.collegeschedule.dto.GroupDto;
 import com.example.collegeschedule.service.GroupService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,5 +28,11 @@ public class GroupController {
             @RequestBody GroupCreateDto groupCreateDto
     ) {
         return ResponseEntity.ok(groupService.create(groupCreateDto));
+    }
+
+    @DeleteMapping("{id}")
+    public HttpStatus delete(@PathVariable Long id) {
+        groupService.delete(id);
+        return HttpStatus.OK;
     }
 }

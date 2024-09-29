@@ -5,6 +5,7 @@ import com.example.collegeschedule.dto.TeacherDto;
 import com.example.collegeschedule.service.TeacherService;
 import com.example.collegeschedule.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,5 +25,11 @@ public class TeacherController {
     @PostMapping
     public ResponseEntity<TeacherDto> createTeacher(@RequestBody TeacherCreateDto teacherCreateDto) {
         return ResponseEntity.ok(teacherService.createTeacher(teacherCreateDto));
+    }
+
+    @DeleteMapping("{id}")
+    public HttpStatus delete(@PathVariable Long id) {
+        teacherService.delete(id);
+        return HttpStatus.OK;
     }
 }

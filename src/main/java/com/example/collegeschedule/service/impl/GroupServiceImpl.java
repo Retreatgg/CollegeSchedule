@@ -45,4 +45,9 @@ public class GroupServiceImpl implements GroupService {
         groupRepository.save(group);
         return groupMapper.toDto(group);
     }
+
+    @Override
+    public void delete(Long id) {
+        groupRepository.deleteById(id);
+    }
 }
