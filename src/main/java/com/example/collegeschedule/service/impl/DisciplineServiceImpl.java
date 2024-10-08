@@ -38,4 +38,9 @@ public class DisciplineServiceImpl implements DisciplineService {
         disciplineRepository.save(discipline);
         return disciplineMapper.toDto(discipline);
     }
+
+    @Override
+    public void delete(Long id) {
+        disciplineRepository.deleteById(id);
+    }
 }

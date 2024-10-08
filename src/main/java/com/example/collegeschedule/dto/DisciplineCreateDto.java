@@ -1,11 +1,11 @@
 package com.example.collegeschedule.dto;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class DisciplineCreateDto {
     private String name;
 }

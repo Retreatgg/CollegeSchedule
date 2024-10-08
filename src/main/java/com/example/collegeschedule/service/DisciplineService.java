@@ -12,4 +12,5 @@ public interface DisciplineService {
     List<DisciplineDto> findAll();
     Discipline findById(Long disciplineId);
     DisciplineDto create(DisciplineCreateDto disciplineCreateDto);
+    void delete(Long id);
 }
