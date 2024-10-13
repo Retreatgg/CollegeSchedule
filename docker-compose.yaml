@@ -1,0 +1,22 @@
+services:
+  client-backend:
+    image: schedule-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "9999:9999"
+    depends_on:
+      - service-db
+    restart: on-failure
+
+  service-db:
+    image: postgres
+    environment:
+      POSTGRES_DB: schedule_db
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+    ports:
+      - "5432:5432"
+volumes:
+  db-data:

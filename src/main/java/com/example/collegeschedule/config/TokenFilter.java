@@ -22,7 +22,10 @@ public class TokenFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         String authHeader = request.getHeader("Authorization");
         String token = null;
-        if(authHeader != null) token = authHeader.substring(7);
+        if(authHeader != null && authHeader.startsWith("Bearer ")) {
+            token = authHeader.substring(7);
+
+        }
 
         if (token != null && validateToken(token)) {
             UserDetails userDetails = getUsernameFromToken(token);
