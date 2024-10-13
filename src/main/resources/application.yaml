@@ -1,8 +1,8 @@
 spring:
   datasource:
     url: jdbc:postgresql://service-db:5432/schedule_db?stringtype=unspecified
-    username: admin
-    password: admin
+    username: argen
+    password: coolboy
     driver-class-name: org.postgresql.Driver
 
   liquibase:
