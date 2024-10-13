@@ -4,11 +4,13 @@ import com.example.collegeschedule.dto.AudienceCreateDto;
 import com.example.collegeschedule.dto.AudienceDto;
 import com.example.collegeschedule.dto.AudiencesTypeDto;
 import com.example.collegeschedule.dto.GroupDto;
+import com.example.collegeschedule.exception.RelatedEntityConstraintException;
 import com.example.collegeschedule.model.Audience;
 import com.example.collegeschedule.service.AudienceService;
 import com.example.collegeschedule.service.AudienceTypeService;
 import com.example.collegeschedule.service.GroupService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -39,7 +41,11 @@ public class AudienceController {
 
     @DeleteMapping("{id}")
     public HttpStatus delete(@PathVariable Long id) {
-        audienceService.delete(id);
+       try {
+              audienceService.delete(id);
+         } catch (DataIntegrityViolationException e) {
+              throw new RelatedEntityConstraintException("Аудитория используется в расписании");
+       }
         return HttpStatus.OK;
     }
 

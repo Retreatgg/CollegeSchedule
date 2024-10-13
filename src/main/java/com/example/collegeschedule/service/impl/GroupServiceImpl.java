@@ -3,11 +3,13 @@ package com.example.collegeschedule.service.impl;
 import com.example.collegeschedule.dto.GroupCreateDto;
 import com.example.collegeschedule.dto.GroupDto;
 import com.example.collegeschedule.exception.GroupNotFoundException;
+import com.example.collegeschedule.exception.RelatedEntityConstraintException;
 import com.example.collegeschedule.mapper.GroupMapper;
 import com.example.collegeschedule.model.Group;
 import com.example.collegeschedule.repository.GroupRepository;
 import com.example.collegeschedule.service.GroupService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -48,6 +50,11 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     public void delete(Long id) {
-        groupRepository.deleteById(id);
+        try{
+            groupRepository.deleteById(id);
+        } catch (DataIntegrityViolationException e) {
+            throw new RelatedEntityConstraintException("Группа используется в расписании");
+        }
+
     }
 }

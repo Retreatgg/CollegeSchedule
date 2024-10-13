@@ -3,11 +3,13 @@ package com.example.collegeschedule.service.impl;
 import com.example.collegeschedule.dto.DisciplineCreateDto;
 import com.example.collegeschedule.dto.DisciplineDto;
 import com.example.collegeschedule.exception.DisciplineNotFoundException;
+import com.example.collegeschedule.exception.RelatedEntityConstraintException;
 import com.example.collegeschedule.mapper.DisciplineMapper;
 import com.example.collegeschedule.model.Discipline;
 import com.example.collegeschedule.repository.DisciplineRepository;
 import com.example.collegeschedule.service.DisciplineService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -41,6 +43,10 @@ public class DisciplineServiceImpl implements DisciplineService {
 
     @Override
     public void delete(Long id) {
-        disciplineRepository.deleteById(id);
+        try{
+            disciplineRepository.deleteById(id);
+        } catch (DataIntegrityViolationException e) {
+            throw new RelatedEntityConstraintException("Дисциплина используется в расписании");
+        }
     }
 }

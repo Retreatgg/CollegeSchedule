@@ -28,7 +28,7 @@ public class Audience {
     private String number;
 
     @NotNull
-    @Column(name = "floor", nullable = false)
+    @Column(name = "floor", nullable = true)
     private Integer floor;
 
     @Column(name = "capacity")

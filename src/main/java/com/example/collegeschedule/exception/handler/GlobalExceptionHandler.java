@@ -68,4 +68,13 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(new AppError(HttpStatus.NOT_FOUND.value(),
                 exception.getMessage()), HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(RelatedEntityConstraintException.class)
+    public ResponseEntity<AppError> handlerRelatedException(RelatedEntityConstraintException exception) {
+        log.error(exception.getMessage());
+        return new ResponseEntity<>(new AppError(HttpStatus.BAD_REQUEST.value(),
+                exception.getMessage()), HttpStatus.BAD_REQUEST);
+    }
+
+
 }

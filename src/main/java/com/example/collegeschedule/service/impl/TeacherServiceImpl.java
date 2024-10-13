@@ -2,12 +2,14 @@ package com.example.collegeschedule.service.impl;
 
 import com.example.collegeschedule.dto.TeacherCreateDto;
 import com.example.collegeschedule.dto.TeacherDto;
+import com.example.collegeschedule.exception.RelatedEntityConstraintException;
 import com.example.collegeschedule.exception.TeacherNotFoundException;
 import com.example.collegeschedule.mapper.TeacherMapper;
 import com.example.collegeschedule.model.Teacher;
 import com.example.collegeschedule.repository.TeacherRepository;
 import com.example.collegeschedule.service.TeacherService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,6 +41,10 @@ public class TeacherServiceImpl implements TeacherService {
 
     @Override
     public void delete(Long id) {
-        teacherRepository.deleteById(id);
+        try{
+            teacherRepository.deleteById(id);
+        } catch (DataIntegrityViolationException e) {
+            throw new RelatedEntityConstraintException("Преподователь используется в расписании");
+        }
     }
 }

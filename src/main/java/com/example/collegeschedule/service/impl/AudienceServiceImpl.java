@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
@@ -22,7 +23,7 @@ public class AudienceServiceImpl implements AudienceService {
 
     @Override
     public List<AudienceDto> findAll() {
-        List<Audience> audiences = audienceRepository.findAll();
+        List<Audience> audiences = audienceRepository.findAudienceOrderByType();
         return audienceMapper.toListDto(audiences);
     }
 
@@ -46,6 +47,9 @@ public class AudienceServiceImpl implements AudienceService {
 
     @Override
     public void delete(Long id) {
-        audienceRepository.deleteById(id);
+        Audience audience = audienceRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Audience not found"));
+
+        audienceRepository.delete(audience);
     }
 }
