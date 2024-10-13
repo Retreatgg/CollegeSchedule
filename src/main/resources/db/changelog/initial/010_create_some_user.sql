@@ -17,8 +17,7 @@ insert into user_roles(user_id, role_id) VALUES (1, 2),
                                                 (3, 2),
                                                 (4, 2),
                                                 (5, 2),
-                                                (6, 2),
-                                                (7, 2);
+                                                (6, 2);
 
 insert into audiences_type(name)
 values ('Компьютерная'),
