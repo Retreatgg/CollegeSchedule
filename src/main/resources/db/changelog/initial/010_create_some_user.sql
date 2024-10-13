@@ -8,7 +8,6 @@ VALUES('Канат', 'Cыдыков', 'Кадырбекович', 'kanat@gmail.c
 ('', '', '', 'maksatkanybekov2004@gmail.com', '$2a$12$WB2YUbFcCN0tm44SBcKUjua9yiFBsfB3vW02IjuwzY7HGtlQIKzy2', true, null),
       ('', '', '', 'comtehno.kg@gmail.com', '$2a$12$WB2YUbFcCN0tm44SBcKUjua9yiFBsfB3vW02IjuwzY7HGtlQIKzy2', true, null),
     ('', '', '', 'asanovkurmanbek342@gmail.com', '$2a$12$WB2YUbFcCN0tm44SBcKUjua9yiFBsfB3vW02IjuwzY7HGtlQIKzy2', true, null),
-('', '', '', 'malabakievramzan@gmail.com', '$2a$12$WB2YUbFcCN0tm44SBcKUjua9yiFBsfB3vW02IjuwzY7HGtlQIKzy2', true, null),
 ('', '', '', 'malabakievramzan@gmail.com', '$2a$12$WB2YUbFcCN0tm44SBcKUjua9yiFBsfB3vW02IjuwzY7HGtlQIKzy2', true, null);
 
 
