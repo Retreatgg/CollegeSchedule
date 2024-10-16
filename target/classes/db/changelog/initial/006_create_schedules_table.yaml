@@ -1,0 +1,53 @@
+databaseChangeLog:
+  - changeSet:
+      id: create table for schedules
+      author: Argen
+      changes:
+        - createTable:
+            tableName: schedules
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: teacher_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_teacher_id
+                    references: users(id)
+              - column:
+                  name: discipline_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_discipline_id
+                    references: disciplines(id)
+              - column:
+                  name: group_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_group_schedule_id
+                    references: groups(id)
+              - column:
+                  name: audience_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_audience_schedule_id
+                    references: audiences(id)
+              - column:
+                  name: start_date
+                  type: time
+                  constraints:
+                    nullable: false
+              - column:
+                  name: end_date
+                  type: time
+                  constraints:
+                    nullable: false

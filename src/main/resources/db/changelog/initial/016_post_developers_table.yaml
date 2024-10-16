@@ -1,0 +1,48 @@
+databaseChangeLog:
+  - changeSet:
+      id: create table for developer_posts
+      author: Argen
+      changes:
+        - createTable:
+            tableName: developer_posts
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: author_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_author_id
+                    references: users(id)
+              - column:
+                  name: title
+                  type: varchar(150)
+              - column:
+                  name: content
+                  type: text
+              - column:
+                  name: created_at
+                  type: timestamp
+                  constraints:
+                    nullable: false
+                    defaultValueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: updated_at
+                  type: timestamp
+                  constraints:
+                      nullable: false
+                      defaultValueComputed: CURRENT_TIMESTAMP
+                      onUpdate: CURRENT_TIMESTAMP
+              - column:
+                  name: id_deleted
+                  type: boolean
+                  defaultValue: false
+              - column:
+                  name: image
+                  type: varchar(255)

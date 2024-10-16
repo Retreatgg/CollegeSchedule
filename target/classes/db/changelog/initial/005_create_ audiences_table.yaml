@@ -1,0 +1,33 @@
+databaseChangeLog:
+  - changeSet:
+      id: create table for audiences
+      author: Argen
+      changes:
+        - createTable:
+            tableName: audiences
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: number
+                  type: varchar(10)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: floor
+                  type: integer
+              - column:
+                  name: capacity
+                  type: integer
+              - column:
+                  name: type_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_type_audiences_id
+                    references: audiences_type(id)
