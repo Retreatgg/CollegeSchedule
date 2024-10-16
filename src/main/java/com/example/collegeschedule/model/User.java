@@ -59,4 +59,6 @@ public class User {
     private String patronymic;
     private String token;
 
+    @Column(name = "reset_password_number")
+    private String resetPasswordToken;
 }

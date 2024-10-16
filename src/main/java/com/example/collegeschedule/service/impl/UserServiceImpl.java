@@ -1,30 +1,29 @@
 package com.example.collegeschedule.service.impl;
 
-import com.example.collegeschedule.dto.TeacherCreateDto;
-import com.example.collegeschedule.dto.TeacherDto;
-import com.example.collegeschedule.dto.TokenDto;
-import com.example.collegeschedule.dto.UserLoginDto;
-import com.example.collegeschedule.mapper.UserMapper;
+import com.example.collegeschedule.dto.*;
 import com.example.collegeschedule.model.User;
-import com.example.collegeschedule.model.UserRole;
 import com.example.collegeschedule.repository.UserRepository;
-import com.example.collegeschedule.repository.UserRoleRepository;
-import com.example.collegeschedule.service.RoleService;
+import com.example.collegeschedule.service.EmailService;
 import com.example.collegeschedule.service.UserService;
+import com.example.collegeschedule.utils.AuthUtils;
 import com.example.collegeschedule.utils.TokenUtils;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder encoder;
+    private final EmailService emailService;
+    private final AuthUtils authUtils;
 
     @Override
     public User findByEmail(String username) {
@@ -62,6 +61,34 @@ public class UserServiceImpl implements UserService {
         return TokenDto.builder()
                 .token(TokenUtils.generateToken(user))
                 .build();
+    }
+
+    @Override
+    public void logout() {
+        User user = authUtils.getUserByAuth();
+        TokenUtils.generateToken(user);
+    }
+
+    @Override
+    public void forgotPassword(ForgotPasswordDto forgotPasswordDto) {
+        User user = findByEmail(forgotPasswordDto.getEmail());
+        String token = UUID.randomUUID().toString();
+        user.setResetPasswordToken(token);
+        emailService.sendMessage(user.getEmail(), token);
+        userRepository.saveAndFlush(user);
+    }
+
+    @Override
+    public void resetPassword(ResetPasswordDto resetPasswordDto) {
+        User user = findByEmail(resetPasswordDto.getEmail());
+        if(user.getResetPasswordToken() != null && user.getResetPasswordToken().equals(resetPasswordDto.getCode())) {
+            user.setPassword(encoder.encode(resetPasswordDto.getPassword()));
+            user.setResetPasswordToken(null);
+            user.setToken(TokenUtils.generateToken(user));
+            userRepository.saveAndFlush(user);
+        } else {
+            throw new IllegalArgumentException("Неверный код подтверждения");
+        }
     }
 
 }

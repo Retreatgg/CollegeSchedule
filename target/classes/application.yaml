@@ -1,5 +1,6 @@
 spring:
   datasource:
+#    url: jdbc:postgresql://service-db:5432/schedule_db?stringtype=unspecified
     url: jdbc:postgresql://localhost:5050/college_db?stringtype=unspecified
 #    username: argen
 #    password: coolboy
@@ -9,6 +10,17 @@ spring:
 
   liquibase:
     change-log: classpath:/db/changelog/master.yaml
+
+  mail:
+    host: smtp.gmail.com
+    username: devargenpm@gmail.com
+    password: vcfs pusq zeeo ncuq
+    port: 587
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls.enable: true
 
 server:
   address: 0.0.0.0
