@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface TeacherRepository extends JpaRepository<Teacher, Long> {
 
-    @Query("SELECT t FROM Teacher t ORDER BY t.name ASC")
+    @Query("SELECT t FROM Teacher t ORDER BY t.surname ASC")
     List<Teacher> findAll();
 }

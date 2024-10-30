@@ -56,7 +56,8 @@ public class ScheduleServiceImpl implements ScheduleService {
                 .and(ScheduleSpecification.hasGroupId(groupId))
                 .and(ScheduleSpecification.hasDiscipline(disciplineId))
                 .and(ScheduleSpecification.betweenTime(startTime, endTime))
-                .and(ScheduleSpecification.hasCourse(course));
+                .and(ScheduleSpecification.hasCourse(course))
+                .and(ScheduleSpecification.orderByStartTime());
         List<Schedule> schedules = scheduleRepository.findAll(spec);
         return scheduleMapper.toListDto(schedules);
     }

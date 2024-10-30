@@ -66,4 +66,10 @@ public class ScheduleSpecification {
         return (r, q, cb) -> cb.equal(r.get("group").get("course"), course);
     }
 
+    public static Specification<Schedule> orderByStartTime() {
+        return (r, q, cb) -> {
+            q.orderBy(cb.asc(r.get("startDate")));
+            return q.getRestriction();
+        };
+    }
 }
