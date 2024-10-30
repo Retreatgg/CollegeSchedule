@@ -22,7 +22,7 @@ public class DisciplineServiceImpl implements DisciplineService {
 
     @Override
     public List<DisciplineDto> findAll() {
-        List<Discipline> disciplines = disciplineRepository.findAll();
+        List<Discipline> disciplines = disciplineRepository.findALl();
         return disciplineMapper.toListDto(disciplines);
     }
 

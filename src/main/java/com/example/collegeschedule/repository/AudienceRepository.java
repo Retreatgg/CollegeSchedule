@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface AudienceRepository extends JpaRepository<Audience, Long> {
 
-    @Query("SELECT a FROM Audience a order by a.type.id ASC")
+    @Query("SELECT a FROM Audience a order by a.type.id, a.number ASC")
     List<Audience> findAudienceOrderByType();
 }

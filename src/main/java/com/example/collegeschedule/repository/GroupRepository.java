@@ -11,6 +11,9 @@ import java.util.List;
 @Repository
 public interface GroupRepository extends JpaRepository<Group, Long> {
 
-    @Query("select g from Group g where g.course = :course")
+    @Query("select g from Group g where g.course = :course order by g.name asc")
     List<Group> findByCourse(@Param("course") Integer course);
+
+    @Query("select g from Group g order by g.name asc")
+    List<Group> findAllBy();
 }

@@ -1,6 +1,6 @@
 spring:
   datasource:
-#    url: jdbc:postgresql://service-db:5432/schedule_db?stringtype=unspecified
+#    url: jdbc:postgresql://service-db:5432/schedule_db?stringtype=unspecified?
     url: jdbc:postgresql://localhost:5050/college_db?stringtype=unspecified
 #    username: argen
 #    password: coolboy
